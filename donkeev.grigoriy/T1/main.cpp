@@ -5,7 +5,7 @@
 #include"notes.hpp"
 
 using noteMap_t = std::unordered_map< std::string, std::shared_ptr< donkeev::Note > >;
-
+using namespace donkeev;
 
 int main()
 {
