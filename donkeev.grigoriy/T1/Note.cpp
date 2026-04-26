@@ -1,15 +1,41 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "Note.hpp"
 
-class Note
+void donkeev::Note::addLine(std::string text)
 {
-  std::vector< std::string > textLines_;
-  std::vector< std::weak_ptr< Note > > links_;
+  textLines_.push_back(text);
+}
 
-public:
-  void addLine(std::string);
+void donkeev::Note::addLink(const std::shared_ptr< Note >& ptr)
+{
+  for (auto it = links_.begin(); it != links_.end();)
+  {
+    if (!it->owner_before(ptr) && !ptr.owner_before(*it))
+    {
+      return;
+    }
+    else
+    {
+      ++it;
+    }
+  }
   
-  void addLink(const std::shared_ptr< Note >& ptr);
-  void deleteLink(const std::shared_ptr< Note >& ptr);
-};
+  links_.push_back(ptr);
+}
+void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
+{
+  for (auto it = links_.begin(); it != links_.end();)
+  {
+    if (!it->owner_before(ptr) && !ptr.owner_before(*it))
+    {
+      it = links_.erase(it);
+      return;
+    }
+    else
+    {
+      ++it;
+    }
+  }
+}
