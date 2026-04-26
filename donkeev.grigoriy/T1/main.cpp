@@ -9,17 +9,28 @@ using noteMap_t = std::unordered_map< std::string, std::shared_ptr< donkeev::Not
 
 int main()
 {
-  std::unordered_map< std::string, std::shared_ptr< donkeev::Note > > notesMap;
-  std::unordered_map< std::string, void(*)(const std::string&, noteMap_t&) > notesCommands;
-  notesCommands["note"] = createNote;
-  notesCommands["line"] = addLine;
-  notesCommands["show"] = showNote;
-  notesCommands["drop"] = deleteNote;
+  noteMap_t notesMap;
+  std::unordered_map< std::string, void(*)(std::istream&, std::ostream&, noteMap_t&) > commands;
+  commands["note"] = createNote;
+  commands["line"] = addLine;
+  commands["show"] = showNote;
+  commands["drop"] = deleteNote;
+  commands["link"] = addLink;
+  commands["mind"] = showLinks;
+  commands["halt"] = deleteLink;
+  commands["expired"] = showExpiredLinks;
+  commands["refresh"] = deleteExpiredLinks;
 
-  std::unordered_map< std::string, void(*)(const std::string&, const std::string&, noteMap_t&) > linksCommands;
-  linksCommands["link"] = addLink;
-  linksCommands["mind"] = showLinks;
-  linksCommands["halt"] = deleteLink;
-  linksCommands["expired"] = showExpiredLinks;
-  linksCommands["refresh"] = deleteExpiredLinks;
+  std::string command;
+  while (std::cin >> command)
+  {
+    try
+    {
+      commands.at(command)(std::cin, std::cout, notesMap);
+    }
+    catch (...)
+    {
+
+    }
+  }
 }
