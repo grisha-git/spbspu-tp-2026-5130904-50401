@@ -4,6 +4,7 @@
 #include<memory>
 #include<limits>
 #include<vector>
+#include<iomanip>
 #include "Note.hpp"
 #include "notes.hpp"
 
@@ -15,9 +16,36 @@
       return;
     }
 
+    std::string extraText;
+    if (input >> extraText)
+    {
+      auto toignore = std::numeric_limits< std::streamsize >::max();
+      std::cin.ignore(toignore, '\n');
+
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
     if (notesMap.find(noteName) == notesMap.end())
     {
       notesMap[noteName] = std::make_shared< Note >();
+    }
+  }
+
+  void donkeev::addLine(std::istream& input, std::ostream& output, noteMap_t& notesMap)
+  {
+    std::string noteName;
+    if (!(input >> noteName))
+    {
+      return;
+    }
+
+    std::string text;
+    if (!(input >> std::quoted(text)))
+    {
+      auto toignore = std::numeric_limits< std::streamsize >::max();
+      std::cin.ignore(toignore, '\n');
+
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
 
     std::string extraText;
@@ -28,4 +56,15 @@
 
       throw std::invalid_argument("<INVALID COMMAND>");
     }
+
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
+    {
+      auto toignore = std::numeric_limits< std::streamsize >::max();
+      std::cin.ignore(toignore, '\n');
+
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
+    it->second->addLine(text);
   }
