@@ -17,8 +17,9 @@ int main()
   commands["show"] = showNote;
   commands["drop"] = deleteNote;
   commands["link"] = addLink;
- /* 
   commands["mind"] = showLinks;
+ /* 
+  
   commands["halt"] = deleteLink;
   commands["expired"] = showExpiredLinks;
   commands["refresh"] = deleteExpiredLinks;

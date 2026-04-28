@@ -4,16 +4,17 @@
 #include <memory>
 #include "Note.hpp"
 
-void donkeev::Note::addLine(std::string text)
+void donkeev::Note::addLine(const std::string text)
 {
   textLines_.push_back(text);
 }
 
-void donkeev::Note::addLink(const std::shared_ptr< Note >& ptr)
+void donkeev::Note::addLink(const std::string noteName, const std::shared_ptr< Note >& ptr)
 {
   for (auto it = links_.begin(); it != links_.end();)
   {
-    if (!it->owner_before(ptr) && !ptr.owner_before(*it))
+    auto ptrToFind = it->second;
+    if (!ptrToFind.owner_before(ptr) && !ptr.owner_before(ptrToFind))
     {
       return;
     }
@@ -23,13 +24,14 @@ void donkeev::Note::addLink(const std::shared_ptr< Note >& ptr)
     }
   }
 
-  links_.push_back(ptr);
+  links_.push_back({noteName, ptr});
 }
 void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
 {
   for (auto it = links_.begin(); it != links_.end();)
   {
-    if (!it->owner_before(ptr) && !ptr.owner_before(*it))
+    auto ptrToFind = it->second;
+    if (!ptrToFind.owner_before(ptr) && !ptr.owner_before(ptrToFind))
     {
       it = links_.erase(it);
       return;
@@ -47,6 +49,19 @@ std::ostream& donkeev::Note::showText(std::ostream& output)
   while (it != textLines_.cend())
   {
     output << *it << '\n';
+    ++it;
+  }
+
+  return output;
+}
+
+std::ostream& donkeev::Note::showLinks(std::ostream& output)
+{
+  auto it = links_.cbegin();
+  while (it != links_.cend())
+  {
+    if (!it->second.expired())
+    output << it->first << '\n';
     ++it;
   }
 

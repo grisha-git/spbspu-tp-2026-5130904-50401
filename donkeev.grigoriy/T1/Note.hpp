@@ -10,15 +10,16 @@ namespace donkeev
   class Note
   {
     std::vector< std::string > textLines_;
-    std::vector< std::weak_ptr< Note > > links_;
+    std::vector<std::pair<std::string, std::weak_ptr<Note>>> links_;
 
   public:
-    void addLine(std::string);
+    void addLine(const std::string);
     
-    void addLink(const std::shared_ptr< Note >&);
+    void addLink(const std::string, const std::shared_ptr< Note >&);
     void deleteLink(const std::shared_ptr< Note >&);
 
     std::ostream& showText(std::ostream&);
+    std::ostream& showLinks(std::ostream&);
   };
 }
 
