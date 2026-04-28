@@ -110,3 +110,35 @@
 
     notesMap.erase(noteName);
   }
+
+  void donkeev::addLink(std::istream& input, std::ostream&, noteMap_t& notesMap)
+  {
+    std::string noteFromName;
+    std::string noteToName;
+    if (!(input >> noteFromName))
+    {
+      return;
+    }
+    if (!(input >> noteToName))
+    {
+      return;
+    }
+
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
+    {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
+    auto itFrom = notesMap.find(noteFromName);
+    auto itTo = notesMap.find(noteToName);
+    if (itFrom == notesMap.end() || itTo == notesMap.end())
+    {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
+    itFrom->second->addLink(itTo->second);
+  }
+
+
