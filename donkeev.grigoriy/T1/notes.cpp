@@ -17,11 +17,9 @@
     }
 
     std::string extraText;
-    if (input >> extraText)
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
-      auto toignore = std::numeric_limits< std::streamsize >::max();
-      std::cin.ignore(toignore, '\n');
-
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
@@ -31,7 +29,7 @@
     }
   }
 
-  void donkeev::addLine(std::istream& input, std::ostream& output, noteMap_t& notesMap)
+  void donkeev::addLine(std::istream& input, std::ostream&, noteMap_t& notesMap)
   {
     std::string noteName;
     if (!(input >> noteName))
@@ -49,11 +47,9 @@
     }
 
     std::string extraText;
-    if (input >> extraText)
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
-      auto toignore = std::numeric_limits< std::streamsize >::max();
-      std::cin.ignore(toignore, '\n');
-
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
@@ -67,4 +63,32 @@
     }
 
     it->second->addLine(text);
+  }
+
+  void donkeev::showNote(std::istream& input, std::ostream& output, noteMap_t& notesMap)
+  {
+    std::string noteName;
+    if (!(input >> noteName))
+    {
+      return;
+    }
+
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
+    {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+    
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
+    {
+      auto toignore = std::numeric_limits< std::streamsize >::max();
+      std::cin.ignore(toignore, '\n');
+
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
+    auto notePtr = it->second;
+    notePtr->showText(output);
   }
