@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <vector>
 #include <memory>
 #include "Note.hpp"
@@ -21,7 +22,7 @@ void donkeev::Note::addLink(const std::shared_ptr< Note >& ptr)
       ++it;
     }
   }
-  
+
   links_.push_back(ptr);
 }
 void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
@@ -38,4 +39,16 @@ void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
       ++it;
     }
   }
+}
+
+std::ostream& donkeev::Note::showText(std::ostream& output)
+{
+  auto it = textLines_.cbegin();
+  while (it != textLines_.cend())
+  {
+    output << *it << '\n';
+    ++it;
+  }
+
+  return output;
 }

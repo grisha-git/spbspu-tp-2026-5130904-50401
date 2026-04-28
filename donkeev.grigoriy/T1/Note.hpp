@@ -15,8 +15,10 @@ namespace donkeev
   public:
     void addLine(std::string);
     
-    void addLink(const std::shared_ptr< Note >& ptr);
-    void deleteLink(const std::shared_ptr< Note >& ptr);
+    void addLink(const std::shared_ptr< Note >&);
+    void deleteLink(const std::shared_ptr< Note >&);
+
+    std::ostream& showText(std::ostream&);
   };
 }
 

@@ -1,6 +1,7 @@
 #include<iostream>
 #include<unordered_map>
 #include<memory>
+#include<limits>
 #include<vector>
 #include"notes.hpp"
 
@@ -15,12 +16,13 @@ int main()
   commands["line"] = addLine;
   commands["show"] = showNote;
   commands["drop"] = deleteNote;
+ /* commands["drop"] = deleteNote;
   commands["link"] = addLink;
   commands["mind"] = showLinks;
   commands["halt"] = deleteLink;
   commands["expired"] = showExpiredLinks;
   commands["refresh"] = deleteExpiredLinks;
-
+*/
   std::string command;
   while (std::cin >> command)
   {
@@ -30,7 +32,7 @@ int main()
     }
     catch (...)
     {
-
+      std::cout << "<INVALID COMMAND>" << "\n";
     }
   }
 }
