@@ -61,14 +61,29 @@ std::ostream& donkeev::Note::showText(std::ostream& output)
 
   return output;
 }
-
 std::ostream& donkeev::Note::showLinks(std::ostream& output)
 {
   auto it = links_.cbegin();
   while (it != links_.cend())
   {
     if (!it->second.expired())
-    output << it->first << '\n';
+    {
+      output << it->first << '\n';
+    }
+    ++it;
+  }
+
+  return output;
+}
+std::ostream& donkeev::Note::showExpiredLinks(std::ostream& output)
+{
+  auto it = links_.cbegin();
+  while (it != links_.cend())
+  {
+    if (it->second.expired())
+    {
+      output << it->first << '\n';
+    }
     ++it;
   }
 

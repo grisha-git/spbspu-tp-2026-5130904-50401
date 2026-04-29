@@ -14,11 +14,12 @@ namespace donkeev
   void addLink(std::istream&, std::ostream&, noteMap_t&);
   void showLinks(std::istream&, std::ostream&, noteMap_t&);
   void deleteLink(std::istream&, std::ostream&, noteMap_t&);
+  void showExpiredLinks(std::istream&, std::ostream&, noteMap_t&);
 /*
   
   
   
-  void showExpiredLinks(std::istream&, std::ostream&, noteMap_t&);
+  
   void deleteExpiredLinks(std::istream&, std::ostream&, noteMap_t&);*/
 }
 

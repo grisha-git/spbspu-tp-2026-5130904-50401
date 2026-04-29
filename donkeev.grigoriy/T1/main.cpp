@@ -19,10 +19,11 @@ int main()
   commands["link"] = addLink;
   commands["mind"] = showLinks;
   commands["halt"] = deleteLink;
+  commands["expired"] = showExpiredLinks;
  /* 
   
   commands["halt"] = deleteLink;
-  commands["expired"] = showExpiredLinks;
+  
   commands["refresh"] = deleteExpiredLinks;
 */
   std::string command;

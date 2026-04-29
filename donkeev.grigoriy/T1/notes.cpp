@@ -194,3 +194,27 @@
 
     itFrom->second->deleteLink(itTo->second);
   }
+
+  void donkeev::showExpiredLinks(std::istream& input, std::ostream& output, noteMap_t& notesMap)
+  {
+    std::string noteName;
+    if (!(input >> noteName))
+    {
+      return;
+    }
+
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
+    {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
+    {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
+
+    it->second->showExpiredLinks(output);
+  }

@@ -20,6 +20,7 @@ namespace donkeev
 
     std::ostream& showText(std::ostream&);
     std::ostream& showLinks(std::ostream&);
+    std::ostream& showExpiredLinks(std::ostream&);
   };
 }
 
