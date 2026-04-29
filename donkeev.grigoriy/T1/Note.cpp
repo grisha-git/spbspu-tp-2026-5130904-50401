@@ -16,7 +16,7 @@ void donkeev::Note::addLink(const std::string noteName, const std::shared_ptr< N
     auto ptrToFind = it->second;
     if (!ptrToFind.owner_before(ptr) && !ptr.owner_before(ptrToFind))
     {
-      return;
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
     else
     {
@@ -28,18 +28,25 @@ void donkeev::Note::addLink(const std::string noteName, const std::shared_ptr< N
 }
 void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
 {
+  bool isSuchLink = false;
   for (auto it = links_.begin(); it != links_.end();)
   {
     auto ptrToFind = it->second;
     if (!ptrToFind.owner_before(ptr) && !ptr.owner_before(ptrToFind))
     {
       it = links_.erase(it);
-      return;
+      isSuchLink = true;
+      break;
     }
     else
     {
       ++it;
     }
+  }
+  
+  if (!isSuchLink)
+  {
+    throw std::invalid_argument("<INVALID COMMAND>");
   }
 }
 

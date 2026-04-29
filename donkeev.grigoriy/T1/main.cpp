@@ -18,6 +18,7 @@ int main()
   commands["drop"] = deleteNote;
   commands["link"] = addLink;
   commands["mind"] = showLinks;
+  commands["halt"] = deleteLink;
  /* 
   
   commands["halt"] = deleteLink;
