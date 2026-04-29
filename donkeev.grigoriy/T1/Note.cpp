@@ -49,6 +49,21 @@ void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
     throw std::invalid_argument("<INVALID COMMAND>");
   }
 }
+void donkeev::Note::deleteExpiredLinks()
+{
+  auto it = links_.cbegin();
+  while (it != links_.cend())
+  {
+    if (it->second.expired())
+    {
+      it = links_.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+}
 
 std::ostream& donkeev::Note::showText(std::ostream& output)
 {

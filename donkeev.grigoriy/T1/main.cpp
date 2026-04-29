@@ -20,12 +20,8 @@ int main()
   commands["mind"] = showLinks;
   commands["halt"] = deleteLink;
   commands["expired"] = showExpiredLinks;
- /* 
-  
-  commands["halt"] = deleteLink;
-  
   commands["refresh"] = deleteExpiredLinks;
-*/
+  
   std::string command;
   while (std::cin >> command)
   {

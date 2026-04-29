@@ -17,6 +17,7 @@ namespace donkeev
     
     void addLink(const std::string, const std::shared_ptr< Note >&);
     void deleteLink(const std::shared_ptr< Note >&);
+    void deleteExpiredLinks();
 
     std::ostream& showText(std::ostream&);
     std::ostream& showLinks(std::ostream&);
