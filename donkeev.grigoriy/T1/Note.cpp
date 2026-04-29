@@ -43,7 +43,7 @@ void donkeev::Note::deleteLink(const std::shared_ptr< Note >& ptr)
       ++it;
     }
   }
-  
+
   if (!isSuchLink)
   {
     throw std::invalid_argument("<INVALID COMMAND>");

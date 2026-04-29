@@ -76,7 +76,7 @@
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
-    
+
     auto it = notesMap.find(noteName);
     if (it == notesMap.end())
     {

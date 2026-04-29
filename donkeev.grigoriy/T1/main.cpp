@@ -21,7 +21,7 @@ int main()
   commands["halt"] = deleteLink;
   commands["expired"] = showExpiredLinks;
   commands["refresh"] = deleteExpiredLinks;
-  
+
   std::string command;
   while (std::cin >> command)
   {
