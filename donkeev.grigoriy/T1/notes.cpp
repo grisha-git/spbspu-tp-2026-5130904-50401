@@ -27,6 +27,10 @@
     {
       notesMap[noteName] = std::make_shared< Note >();
     }
+    else
+    {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
   }
 
   void donkeev::addLine(std::istream& input, std::ostream&, noteMap_t& notesMap)

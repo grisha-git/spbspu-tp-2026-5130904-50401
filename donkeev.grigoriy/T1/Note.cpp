@@ -68,6 +68,12 @@ void donkeev::Note::deleteExpiredLinks()
 std::ostream& donkeev::Note::showText(std::ostream& output)
 {
   auto it = textLines_.cbegin();
+
+  if (it == textLines_.cend())
+  {
+    output << '\n';
+  }
+
   while (it != textLines_.cend())
   {
     output << *it << '\n';
@@ -79,6 +85,12 @@ std::ostream& donkeev::Note::showText(std::ostream& output)
 std::ostream& donkeev::Note::showLinks(std::ostream& output)
 {
   auto it = links_.cbegin();
+  
+  if (it == links_.cend())
+  {
+    output << '\n';
+  }
+  
   while (it != links_.cend())
   {
     if (!it->second.expired())
