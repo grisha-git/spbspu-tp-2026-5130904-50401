@@ -40,21 +40,18 @@
     std::string text;
     if (!(input >> std::quoted(text)))
     {
-      auto toignore = std::numeric_limits< std::streamsize >::max();
-      std::cin.ignore(toignore, '\n');
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
 
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
+    {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
     std::string extraText;
     std::getline(input, extraText);
     if (!extraText.empty())
-    {
-      throw std::invalid_argument("<INVALID COMMAND>");
-    }
-
-    auto it = notesMap.find(noteName);
-    if (it == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -70,15 +67,15 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto it = notesMap.find(noteName);
-    if (it == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -95,15 +92,15 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto it = notesMap.find(noteName);
-    if (it == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -124,16 +121,16 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto itFrom = notesMap.find(noteFromName);
+    auto itTo = notesMap.find(noteToName);
+    if (itFrom == notesMap.end() || itTo == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto itFrom = notesMap.find(noteFromName);
-    auto itTo = notesMap.find(noteToName);
-    if (itFrom == notesMap.end() || itTo == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -149,15 +146,15 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto it = notesMap.find(noteName);
-    if (it == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -178,16 +175,16 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto itFrom = notesMap.find(noteFromName);
+    auto itTo = notesMap.find(noteToName);
+    if (itFrom == notesMap.end() || itTo == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto itFrom = notesMap.find(noteFromName);
-    auto itTo = notesMap.find(noteToName);
-    if (itFrom == notesMap.end() || itTo == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -203,15 +200,15 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto it = notesMap.find(noteName);
-    if (it == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
@@ -227,15 +224,15 @@
       return;
     }
 
-    std::string extraText;
-    std::getline(input, extraText);
-    if (!extraText.empty())
+    auto it = notesMap.find(noteName);
+    if (it == notesMap.end())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
 
-    auto it = notesMap.find(noteName);
-    if (it == notesMap.end())
+    std::string extraText;
+    std::getline(input, extraText);
+    if (!extraText.empty())
     {
       throw std::invalid_argument("<INVALID COMMAND>");
     }
