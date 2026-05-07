@@ -85,19 +85,21 @@ std::ostream& donkeev::Note::showText(std::ostream& output)
 std::ostream& donkeev::Note::showLinks(std::ostream& output)
 {
   auto it = links_.cbegin();
-
-  if (it == links_.cend())
-  {
-    output << '\n';
-  }
+  bool wasOutput = false;
 
   while (it != links_.cend())
   {
     if (!it->second.expired())
     {
       output << it->first << '\n';
+      wasOutput = true;
     }
     ++it;
+  }
+
+  if (!wasOutput)
+  {
+    output << '\n';
   }
 
   return output;
