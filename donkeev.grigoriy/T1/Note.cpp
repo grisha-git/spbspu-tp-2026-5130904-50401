@@ -93,14 +93,17 @@ std::ostream& donkeev::Note::showLinks(std::ostream& output)
 std::ostream& donkeev::Note::showExpiredLinks(std::ostream& output)
 {
   auto it = links_.cbegin();
+  size_t count = 0;
   while (it != links_.cend())
   {
     if (it->second.expired())
     {
-      output << it->first << '\n';
+      ++count;
     }
     ++it;
   }
+
+  output << count << '\n';
 
   return output;
 }
