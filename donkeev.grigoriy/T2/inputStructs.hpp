@@ -16,6 +16,14 @@ namespace donkeev
     char fill_;
   };
 
+  struct DelimiterIO
+  {
+    char exp_;
+    char& last_;
+  };
+
+  std::istream& operator>>(std::istream&, DelimiterIO&&);
+
   struct DblSci
   {
     double double_;
