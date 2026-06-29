@@ -1,6 +1,20 @@
 #include <iostream>
 namespace donkeev
 {
+  struct IOGuard
+  {
+    explicit IOGuard(std::basic_ios< char >&);
+
+    ~IOGuard();
+
+  private:
+    std::basic_ios< char >& s_;
+    std::streamsize precision_;
+    std::streamsize width_;
+    std::basic_ios< char >::fmtflags flags_;
+    char fill_;
+  };
+
   struct DblSci
   {
     double double_;
