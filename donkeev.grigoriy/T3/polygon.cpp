@@ -99,12 +99,6 @@ std::istream& donkeev::operator>>(std::istream& is, Delimiter d)
   return is;
 }
 
-std::istream& donkeev::operator>>(std::istream& is, Delimiter d)
-{
-  d.last = check(is, d.expected);
-  return is;
-}
-
 double donkeev::getArea(const Polygon& polygon)
 {
   if (polygon.points.size() < 3)
@@ -190,4 +184,15 @@ bool donkeev::isRect(const Polygon& polygon)
     (dx12 * dx23 + dy12 * dy23 == 0) &&
     (dx23 * dx30 + dy23 * dy30 == 0) &&
     (dx30 * dx01 + dy30 * dy01 == 0);
+}
+
+char donkeev::check(std::istream& is, char expected)
+{
+  char c = 0;
+  is >> c;
+  if (c != expected)
+  {
+    is.setstate(std::ios_base::failbit);
+  }
+  return c;
 }
