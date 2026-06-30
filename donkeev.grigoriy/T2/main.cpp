@@ -21,8 +21,6 @@ int main()
       }
     }
 
-    std::cerr << "Прочитано: " << data.size() << " записей" << std::endl;
-
     std::sort(data.begin(), data.end());
 
     using oit_t = std::ostream_iterator<T>;
