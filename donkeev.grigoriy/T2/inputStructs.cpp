@@ -221,7 +221,6 @@ std::istream& donkeev::operator>>(std::istream& in, DataStruct& dest)
     in >> DelimiterIO{ ':' };
   }
 
-  in >> DelimiterIO{ ':' };
   in >> DelimiterIO{ ')' };
 
   if (in && hasKey1 && hasKey2 && hasKey3)
