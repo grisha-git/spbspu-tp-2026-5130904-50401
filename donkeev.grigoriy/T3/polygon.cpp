@@ -98,3 +98,29 @@ std::istream& donkeev::operator>>(std::istream& is, Delimiter d)
   d.last = check(is, d.expected);
   return is;
 }
+
+std::istream& donkeev::operator>>(std::istream& is, Delimiter d)
+{
+  d.last = check(is, d.expected);
+  return is;
+}
+
+double donkeev::getArea(const Polygon& polygon)
+{
+  if (polygon.points.size() < 3)
+  {
+    return 0.0;
+  }
+
+  double area = 0.0;
+  size_t n = polygon.points.size();
+
+  for (size_t i = 0; i < n; ++i)
+  {
+    const Point& p1 = polygon.points[i];
+    const Point& p2 = polygon.points[(i + 1) % n];
+    area += static_cast<double>(p1.x) * p2.y - static_cast<double>(p2.x) * p1.y;
+  }
+
+  return std::abs(area) / 2.0;
+}
