@@ -23,7 +23,7 @@ std::istream& donkeev::operator>>(std::istream& in, DelimiterIO&& dest)
   {
     return in;
   }
-  
+
   char c = 0;
   in >> c;
   if (in && (c != dest.exp_))
@@ -43,7 +43,7 @@ std::istream& donkeev::operator>>(std::istream& in, DblSci& val)
 
   double test;
   in >> test;
-    
+
   if (in)
   {
     val.double_ = test;
@@ -59,20 +59,20 @@ std::ostream& donkeev::operator<<(std::ostream& out, const DblSci& val)
   {
     return out;
   }
-    
+
   IOGuard guard(out);
   out << std::fixed << std::setprecision(1);
-    
+
   double test = val.double_;
   if (test == 0.0)
   {
     out << "0.0e+0";
     return out;
   }
-  
+
   int exponent = 0;
   double mantissa = test;
-  
+
   if (std::abs(mantissa) >= 10.0)
   {
     while (std::abs(mantissa) >= 10.0)
@@ -89,14 +89,14 @@ std::ostream& donkeev::operator<<(std::ostream& out, const DblSci& val)
       --exponent;
     }
   }
-    
+
   out << mantissa << 'e';
   if (exponent >= 0)
   {
     out << '+';
   }
   out << exponent;
-  
+
   return out;
 }
 
@@ -117,33 +117,33 @@ std::istream& donkeev::operator>>(std::istream& in, ChrLit& val)
   {
     return in;
   }
-  
+
   char quote1 = 0;
   in >> quote1;
-  
+
   if (quote1 != '\'')
   {
     in.setstate(std::ios::failbit);
     return in;
   }
-  
+
   char ch = 0;
   in >> ch;
-  
+
   char quote2 = 0;
   in >> quote2;
-  
+
   if (quote2 != '\'')
   {
     in.setstate(std::ios::failbit);
     return in;
   }
-  
+
   if (in)
   {
     val.char_ = ch;
   }
-  
+
   return in;
 }
 
@@ -154,7 +154,7 @@ std::ostream& donkeev::operator<<(std::ostream& out, const ChrLit& val)
   {
     return out;
   }
-  
+
   out << '\'' << val.char_ << '\'';
   return out;
 }
@@ -176,27 +176,27 @@ std::istream& donkeev::operator>>(std::istream& in, DataStruct& dest)
   {
     return in;
   }
-  
+
   IOGuard guard(in);
-  
+
   DataStruct input;
   bool hasKey1 = false;
   bool hasKey2 = false;
   bool hasKey3 = false;
-  
+
   in >> DelimiterIO{ '(' };
   in >> DelimiterIO{ ':' };
-  
+
   while (in && in.peek() != ')')
   {
     std::string field;
     in >> field;
-    
+
     if (!in)
     {
       return in;
     }
-    
+
     if (field == "key1")
     {
       in >> input.key1;
@@ -217,13 +217,13 @@ std::istream& donkeev::operator>>(std::istream& in, DataStruct& dest)
       in.setstate(std::ios::failbit);
       return in;
     }
-    
+
     in >> DelimiterIO{ ':' };
   }
-  
+
   in >> DelimiterIO{ ':' };
   in >> DelimiterIO{ ')' };
-  
+
   if (in && hasKey1 && hasKey2 && hasKey3)
   {
     dest = input;
@@ -232,7 +232,7 @@ std::istream& donkeev::operator>>(std::istream& in, DataStruct& dest)
   {
     in.setstate(std::ios::failbit);
   }
-  
+
   return in;
 }
 
@@ -243,12 +243,12 @@ std::ostream& donkeev::operator<<(std::ostream& out, const DataStruct& src)
   {
     return out;
   }
-  
+
   IOGuard guard(out);
   out << "(:key1 " << src.key1;
   out << ":key2 " << src.key2;
   out << ":key3 " << std::quoted(src.key3) << ":)";
-  
+
   return out;
 }
 
@@ -262,7 +262,7 @@ bool donkeev::operator<(const DataStruct& lhs, const DataStruct& rhs)
   {
     return false;
   }
-  
+
   if (lhs.key2 < rhs.key2)
   {
     return true;
@@ -271,6 +271,6 @@ bool donkeev::operator<(const DataStruct& lhs, const DataStruct& rhs)
   {
     return false;
   }
-  
+
   return lhs.key3.length() < rhs.key3.length();
 }
