@@ -12,6 +12,23 @@ bool isNumber(const std::string& str)
   return !str.empty() && std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
+void checkLineEnd(std::istream& is)
+{
+  while (is && std::isspace(static_cast<unsigned char>(is.peek())))
+  {
+    if (is.peek() == '\n')
+    {
+      return;
+    }
+    is.get();
+  }
+
+  if (is && is.peek() != std::char_traits<char>::eof())
+  {
+    throw std::invalid_argument("invalid command");
+  }
+}
+
 void donkeev::area(std::istream& is, std::ostream& os, const std::vector<Polygon>& polygons)
 {
   std::string arg;
@@ -27,12 +44,12 @@ void donkeev::area(std::istream& is, std::ostream& os, const std::vector<Polygon
   if (arg == "EVEN")
   {
     std::copy_if(polygons.begin(), polygons.end(),
-                  std::back_inserter(filtered), hasEvenVertices);
+      std::back_inserter(filtered), hasEvenVertices);
   }
   else if (arg == "ODD")
   {
     std::copy_if(polygons.begin(), polygons.end(),
-                  std::back_inserter(filtered), hasOddVertices);
+      std::back_inserter(filtered), hasOddVertices);
   }
   else if (arg == "MEAN")
   {
@@ -50,8 +67,8 @@ void donkeev::area(std::istream& is, std::ostream& os, const std::vector<Polygon
       throw std::invalid_argument("invalid vertex count");
     }
     std::copy_if(polygons.begin(), polygons.end(),
-                  std::back_inserter(filtered),
-                  [count](const Polygon& p) { return hasNVertices(p, count); });
+      std::back_inserter(filtered),
+        [count](const Polygon& p) { return hasNVertices(p, count); });
   }
   else
   {
@@ -88,10 +105,10 @@ void donkeev::max(std::istream& is, std::ostream& os, const std::vector<Polygon>
   if (arg == "AREA")
   {
     auto it = std::max_element(polygons.begin(), polygons.end(),
-        [](const Polygon& lhs, const Polygon& rhs)
-        {
-          return getArea(lhs) < getArea(rhs);
-        });
+      [](const Polygon& lhs, const Polygon& rhs)
+      {
+        return getArea(lhs) < getArea(rhs);
+      });
     os << std::fixed << std::setprecision(1) << getArea(*it) << '\n';
   }
   else if (arg == "VERTEXES")
@@ -185,4 +202,59 @@ void donkeev::count(std::istream& is, std::ostream& os, const std::vector<Polygo
 
   os << result << '\n';
 }
-  
+
+void donkeev::inframe(std::istream& is, std::ostream& os, const std::vector<Polygon>& polygons)
+{
+  if (polygons.empty())
+  {
+    throw std::invalid_argument("no polygons for inframe");
+  }
+
+  Polygon p;
+  is >> p;
+
+  if (!is)
+  {
+    throw std::invalid_argument("invalid polygon format");
+  }
+
+  checkLineEnd(is);
+
+  int minX = std::numeric_limits<int>::max();
+  int maxX = std::numeric_limits<int>::min();
+  int minY = std::numeric_limits<int>::max();
+  int maxY = std::numeric_limits<int>::min();
+
+  for (const auto& poly : polygons)
+  {
+    for (const auto& point : poly.points)
+    {
+      minX = std::min(minX, point.x);
+      maxX = std::max(maxX, point.x);
+      minY = std::min(minY, point.y);
+      maxY = std::max(maxY, point.y);
+    }
+  }
+
+  int pMinX = std::numeric_limits<int>::max();
+  int pMaxX = std::numeric_limits<int>::min();
+  int pMinY = std::numeric_limits<int>::max();
+  int pMaxY = std::numeric_limits<int>::min();
+
+  for (const auto& point : p.points)
+  {
+    pMinX = std::min(pMinX, point.x);
+    pMaxX = std::max(pMaxX, point.x);
+    pMinY = std::min(pMinY, point.y);
+    pMaxY = std::max(pMaxY, point.y);
+  }
+
+  if (minX <= pMinX && maxX >= pMaxX && minY <= pMinY && maxY >= pMaxY)
+  {
+    os << "<TRUE>\n";
+  }
+  else
+  {
+    os << "<FALSE>\n";
+  }
+}
