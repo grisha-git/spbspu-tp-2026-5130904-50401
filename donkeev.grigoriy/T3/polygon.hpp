@@ -46,7 +46,12 @@ namespace donkeev
   std::istream& operator>>(std::istream& is, Delimiter d);
   char check(std::istream& is, char expected);
 
-  
+  double getArea(const Polygon& polygon);
+  bool hasEvenVertices(const Polygon& polygon);
+  bool hasOddVertices(const Polygon& polygon);
+  bool hasNVertices(const Polygon& polygon, size_t n);
+  bool isRightShape(const Polygon& polygon);
+  bool isRect(const Polygon& polygon);
 }
 
 #endif
