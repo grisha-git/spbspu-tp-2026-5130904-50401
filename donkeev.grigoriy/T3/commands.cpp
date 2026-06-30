@@ -258,3 +258,10 @@ void donkeev::inframe(std::istream& is, std::ostream& os, const std::vector<Poly
     os << "<FALSE>\n";
   }
 }
+
+void donkeev::rightShapes(std::istream& is, std::ostream& os, const std::vector<Polygon>& polygons)
+{
+  checkLineEnd(is);
+  size_t result = std::count_if(polygons.begin(), polygons.end(), isRightShape);
+  os << result << '\n';
+}
