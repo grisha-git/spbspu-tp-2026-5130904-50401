@@ -147,4 +147,42 @@ void donkeev::min(std::istream& is, std::ostream& os, const std::vector<Polygon>
     throw std::invalid_argument("invalid command");
   }
 }
+
+void donkeev::count(std::istream& is, std::ostream& os, const std::vector<Polygon>& polygons)
+{
+  std::string arg;
+  is >> arg;
+
+  if (!is)
+  {
+    throw std::invalid_argument("invalid command");
+  }
+
+  size_t result = 0;
+
+  if (arg == "EVEN")
+  {
+    result = std::count_if(polygons.begin(), polygons.end(), hasEvenVertices);
+  }
+  else if (arg == "ODD")
+  {
+    result = std::count_if(polygons.begin(), polygons.end(), hasOddVertices);
+  }
+  else if (isNumber(arg))
+  {
+    size_t count = std::stoull(arg);
+    if (count < 3)
+    {
+      throw std::invalid_argument("invalid vertex count");
+    }
+    result = std::count_if(polygons.begin(), polygons.end(),
+        [count](const Polygon& p) { return hasNVertices(p, count); });
+  }
+  else
+  {
+    throw std::invalid_argument("invalid command");
+  }
+
+  os << result << '\n';
+}
   
