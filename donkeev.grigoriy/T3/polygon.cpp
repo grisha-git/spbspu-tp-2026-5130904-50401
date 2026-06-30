@@ -187,7 +187,7 @@ bool donkeev::isRect(const Polygon& polygon)
   long long dy30 = static_cast<long long>(pts[0].y) - pts[3].y;
 
   return (dx01 * dx12 + dy01 * dy12 == 0) &&
-          (dx12 * dx23 + dy12 * dy23 == 0) &&
-          (dx23 * dx30 + dy23 * dy30 == 0) &&
-          (dx30 * dx01 + dy30 * dy01 == 0);
+    (dx12 * dx23 + dy12 * dy23 == 0) &&
+    (dx23 * dx30 + dy23 * dy30 == 0) &&
+    (dx30 * dx01 + dy30 * dy01 == 0);
 }

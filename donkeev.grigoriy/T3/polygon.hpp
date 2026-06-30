@@ -4,6 +4,11 @@
 #include <iostream>
 #include <vector>
 #include <ios>
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <numeric>
+#include <limits>
 
 namespace donkeev
 {
@@ -12,21 +17,21 @@ namespace donkeev
     int x, y;
   };
 
-  std::istream& operator>>(std::istream& is, Point& p);
-  std::ostream& operator<<(std::ostream& os, const Point& p);
-  bool operator==(const Point& lhs, const Point& rhs);
+  std::istream& operator>>(std::istream&, Point&);
+  std::ostream& operator<<(std::ostream&, const Point&);
+  bool operator==(const Point&, const Point&);
 
   struct Polygon
   {
     std::vector<Point> points;
   };
 
-  std::istream& operator>>(std::istream& is, Polygon& p);
-  std::ostream& operator<<(std::ostream& os, const Polygon& p);
+  std::istream& operator>>(std::istream&, Polygon&);
+  std::ostream& operator<<(std::ostream&, const Polygon&);
 
   struct IOGuard
   {
-    explicit IOGuard(std::basic_ios<char>& s);
+    explicit IOGuard(std::basic_ios<char>&);
     ~IOGuard();
 
   private:
@@ -43,15 +48,15 @@ namespace donkeev
     char& last;
   };
 
-  std::istream& operator>>(std::istream& is, Delimiter d);
-  char check(std::istream& is, char expected);
+  std::istream& operator>>(std::istream&, Delimiter);
+  char check(std::istream&, char);
 
-  double getArea(const Polygon& polygon);
-  bool hasEvenVertices(const Polygon& polygon);
-  bool hasOddVertices(const Polygon& polygon);
-  bool hasNVertices(const Polygon& polygon, size_t n);
-  bool isRightShape(const Polygon& polygon);
-  bool isRect(const Polygon& polygon);
+  double getArea(const Polygon&);
+  bool hasEvenVertices(const Polygon&);
+  bool hasOddVertices(const Polygon&);
+  bool hasNVertices(const Polygon&, size_t);
+  bool isRightShape(const Polygon&);
+  bool isRect(const Polygon&);
 }
 
 #endif
