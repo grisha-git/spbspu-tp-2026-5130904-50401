@@ -1,7 +1,5 @@
 #include "polygon.hpp"
 
-#include <iostream>
-
 donkeev::IOGuard::IOGuard(std::basic_ios<char>& s):
   s_(s),
   precision_(s.precision()),
@@ -44,7 +42,53 @@ std::ostream& donkeev::operator<<(std::ostream& os, const Point& p)
   return os;
 }
 
-  bool donkeev::operator==(const Point& lhs, const Point& rhs)
+bool donkeev::operator==(const Point& lhs, const Point& rhs)
+{
+  return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+std::istream& donkeev::operator>>(std::istream& is, Polygon& p)
+{
+  std::istream::sentry sentry(is);
+  if (!sentry)
   {
-    return lhs.x == rhs.x && lhs.y == rhs.y;
+    return is;
   }
+
+  IOGuard guard(is);
+  Polygon temp;
+  size_t count_points = 0;
+  is >> count_points;
+
+  if (count_points < 3)
+  {
+    is.setstate(std::ios_base::failbit);
+    return is;
+  }
+
+  temp.points.reserve(count_points);
+  std::copy_n(std::istream_iterator<Point>(is), count_points, std::back_inserter(temp.points));
+
+  if (temp.points.size() != count_points || !is)
+  {
+    is.setstate(std::ios_base::failbit);
+    return is;
+  }
+
+  p = temp;
+  return is;
+}
+
+std::ostream& donkeev::operator<<(std::ostream& os, const Polygon& p)
+{
+  if (p.points.empty())
+  {
+    return os;
+  }
+
+  os << p.points.size() << " ";
+  std::copy(p.points.begin(), p.points.end() - 1,
+            std::ostream_iterator<Point>(os, " "));
+  os << *(p.points.end() - 1);
+  return os;
+}
