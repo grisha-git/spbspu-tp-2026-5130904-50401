@@ -235,3 +235,42 @@ std::istream& donkeev::operator>>(std::istream& in, DataStruct& dest)
   
   return in;
 }
+
+std::ostream& donkeev::operator<<(std::ostream& out, const DataStruct& src)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  
+  IOGuard guard(out);
+  out << "(:key1 " << src.key1;
+  out << ":key2 " << src.key2;
+  out << ":key3 " << std::quoted(src.key3) << ":)";
+  
+  return out;
+}
+
+bool donkeev::operator<(const DataStruct& lhs, const DataStruct& rhs)
+{
+  if (lhs.key1 < rhs.key1)
+  {
+    return true;
+  }
+  if (rhs.key1 < lhs.key1)
+  {
+    return false;
+  }
+  
+  if (lhs.key2 < rhs.key2)
+  {
+    return true;
+  }
+  if (rhs.key2 < lhs.key2)
+  {
+    return false;
+  }
+  
+  return lhs.key3.length() < rhs.key3.length();
+}
