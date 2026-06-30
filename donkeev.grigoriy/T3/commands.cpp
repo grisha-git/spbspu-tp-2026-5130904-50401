@@ -108,3 +108,43 @@ void donkeev::max(std::istream& is, std::ostream& os, const std::vector<Polygon>
     throw std::invalid_argument("invalid command");
   }
 }
+
+void donkeev::min(std::istream& is, std::ostream& os, const std::vector<Polygon>& polygons)
+{
+  if (polygons.empty())
+  {
+    throw std::invalid_argument("no polygons for min");
+  }
+
+  std::string arg;
+  is >> arg;
+
+  if (!is)
+  {
+    throw std::invalid_argument("invalid command");
+  }
+
+  if (arg == "AREA")
+  {
+    auto it = std::min_element(polygons.begin(), polygons.end(),
+        [](const Polygon& lhs, const Polygon& rhs)
+        {
+          return getArea(lhs) < getArea(rhs);
+        });
+    os << std::fixed << std::setprecision(1) << getArea(*it) << '\n';
+  }
+  else if (arg == "VERTEXES")
+  {
+    auto it = std::min_element(polygons.begin(), polygons.end(),
+        [](const Polygon& lhs, const Polygon& rhs)
+        {
+          return lhs.points.size() < rhs.points.size();
+        });
+    os << it->points.size() << '\n';
+  }
+  else
+  {
+    throw std::invalid_argument("invalid command");
+  }
+}
+  
