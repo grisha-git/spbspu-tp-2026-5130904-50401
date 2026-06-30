@@ -169,4 +169,69 @@ bool donkeev::operator==(const ChrLit& lhs, const ChrLit& rhs)
   return lhs.char_ == rhs.char_;
 }
 
-
+std::istream& donkeev::operator>>(std::istream& in, DataStruct& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  
+  IOGuard guard(in);
+  
+  DataStruct input;
+  bool hasKey1 = false;
+  bool hasKey2 = false;
+  bool hasKey3 = false;
+  
+  in >> DelimiterIO{ '(' };
+  in >> DelimiterIO{ ':' };
+  
+  while (in && in.peek() != ')')
+  {
+    std::string field;
+    in >> field;
+    
+    if (!in)
+    {
+      return in;
+    }
+    
+    if (field == "key1")
+    {
+      in >> input.key1;
+      hasKey1 = true;
+    }
+    else if (field == "key2")
+    {
+      in >> input.key2;
+      hasKey2 = true;
+    }
+    else if (field == "key3")
+    {
+      in >> std::quoted(input.key3);
+      hasKey3 = true;
+    }
+    else
+    {
+      in.setstate(std::ios::failbit);
+      return in;
+    }
+    
+    in >> DelimiterIO{ ':' };
+  }
+  
+  in >> DelimiterIO{ ':' };
+  in >> DelimiterIO{ ')' };
+  
+  if (in && hasKey1 && hasKey2 && hasKey3)
+  {
+    dest = input;
+  }
+  else
+  {
+    in.setstate(std::ios::failbit);
+  }
+  
+  return in;
+}
