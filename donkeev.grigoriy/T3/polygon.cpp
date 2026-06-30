@@ -43,3 +43,8 @@ std::ostream& donkeev::operator<<(std::ostream& os, const Point& p)
   os << '(' << p.x << ';' << p.y << ')';
   return os;
 }
+
+  bool donkeev::operator==(const Point& lhs, const Point& rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+  }
