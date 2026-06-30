@@ -19,7 +19,6 @@ namespace donkeev
   struct DelimiterIO
   {
     char exp_;
-    char& last_;
   };
 
   std::istream& operator>>(std::istream&, DelimiterIO&&);
@@ -53,4 +52,5 @@ namespace donkeev
   };
   std::istream& operator>>(std::istream&, DataStruct&);
   std::ostream& operator<<(std::ostream&, const DataStruct&);
+  bool operator<(const DataStruct&, const DataStruct&);
 }
