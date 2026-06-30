@@ -31,6 +31,9 @@ namespace donkeev
 
   std::istream& operator>>(std::istream&, DblSci&);
   std::ostream& operator<<(std::ostream&, const DblSci&);
+  bool operator<(const DblSci&, const DblSci&);
+  bool operator==(const DblSci&, const DblSci&);
+
 
   struct ChrLit
   {
@@ -39,6 +42,8 @@ namespace donkeev
 
   std::istream& operator>>(std::istream&, ChrLit&);
   std::ostream& operator<<(std::ostream&, const ChrLit&);
+  bool operator<(const ChrLit&, const ChrLit&);
+  bool operator==(const ChrLit&, const ChrLit&);
 
   struct DataStruct
   {
