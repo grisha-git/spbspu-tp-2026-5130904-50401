@@ -124,3 +124,18 @@ double donkeev::getArea(const Polygon& polygon)
 
   return std::abs(area) / 2.0;
 }
+
+bool donkeev::hasEvenVertices(const Polygon& polygon)
+{
+  return polygon.points.size() % 2 == 0;
+}
+
+bool donkeev::hasOddVertices(const Polygon& polygon)
+{
+  return polygon.points.size() % 2 == 1;
+}
+
+bool donkeev::hasNVertices(const Polygon& polygon, size_t n)
+{
+  return polygon.points.size() == n;
+}
