@@ -92,3 +92,9 @@ std::ostream& donkeev::operator<<(std::ostream& os, const Polygon& p)
   os << *(p.points.end() - 1);
   return os;
 }
+
+std::istream& donkeev::operator>>(std::istream& is, Delimiter d)
+{
+  d.last = check(is, d.expected);
+  return is;
+}
