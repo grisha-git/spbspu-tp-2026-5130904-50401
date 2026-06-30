@@ -139,3 +139,32 @@ bool donkeev::hasNVertices(const Polygon& polygon, size_t n)
 {
   return polygon.points.size() == n;
 }
+
+ bool donkeev::isRightShape(const Polygon& polygon)
+{
+  if (polygon.points.size() < 3)
+  {
+    return false;
+  }
+
+  size_t n = polygon.points.size();
+
+  for (size_t i = 0; i < n; ++i)
+  {
+    const Point& a = polygon.points[i];
+    const Point& b = polygon.points[(i + 1) % n];
+    const Point& c = polygon.points[(i + 2) % n];
+
+    long long abx = static_cast<long long>(b.x) - a.x;
+    long long aby = static_cast<long long>(b.y) - a.y;
+    long long bcx = static_cast<long long>(c.x) - b.x;
+    long long bcy = static_cast<long long>(c.y) - b.y;
+
+    if (abx * bcx + aby * bcy == 0)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
