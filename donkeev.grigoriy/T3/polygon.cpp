@@ -168,3 +168,26 @@ bool donkeev::hasNVertices(const Polygon& polygon, size_t n)
 
   return false;
 }
+
+bool donkeev::isRect(const Polygon& polygon)
+{
+  if (polygon.points.size() != 4)
+  {
+    return false;
+  }
+
+  const auto& pts = polygon.points;
+  long long dx01 = static_cast<long long>(pts[1].x) - pts[0].x;
+  long long dy01 = static_cast<long long>(pts[1].y) - pts[0].y;
+  long long dx12 = static_cast<long long>(pts[2].x) - pts[1].x;
+  long long dy12 = static_cast<long long>(pts[2].y) - pts[1].y;
+  long long dx23 = static_cast<long long>(pts[3].x) - pts[2].x;
+  long long dy23 = static_cast<long long>(pts[3].y) - pts[2].y;
+  long long dx30 = static_cast<long long>(pts[0].x) - pts[3].x;
+  long long dy30 = static_cast<long long>(pts[0].y) - pts[3].y;
+
+  return (dx01 * dx12 + dy01 * dy12 == 0) &&
+          (dx12 * dx23 + dy12 * dy23 == 0) &&
+          (dx23 * dx30 + dy23 * dy30 == 0) &&
+          (dx30 * dx01 + dy30 * dy01 == 0);
+}
