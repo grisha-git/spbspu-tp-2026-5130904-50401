@@ -1,5 +1,9 @@
+#ifndef INPUTsTRUCTS_HPP
+#define INPUTsTRUCTS_HPP
+
 #include <iostream>
 #include <iomanip>
+#include <string>
 namespace donkeev
 {
   struct IOGuard
@@ -54,3 +58,5 @@ namespace donkeev
   std::ostream& operator<<(std::ostream&, const DataStruct&);
   bool operator<(const DataStruct&, const DataStruct&);
 }
+
+#endif
